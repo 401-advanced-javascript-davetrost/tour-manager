@@ -31,3 +31,7 @@ the API needs to be able to add, update and remove stops.
 ## Geolocation Data and Weather Information
 
 When adding a stop, the API takes an address search, and looks up additional information using Google's geolocation API and the DarkSkies Weather API. This information is inserted into any stop that is created.
+
+## Jest Mocks
+
+On GitHub, Travis will fail any tests that get data from API's based on an API key. Jest Mocks are used to circumvent this issue.
