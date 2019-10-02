@@ -8,14 +8,13 @@ function postTour(tour) {
     .then(({ body }) => body);
 }
 
-function postTourDate(tour, date) {
+function postTourStop(id, stop) {
   return request
-    .post('/api/tours/:id/date')
-    .send(tour)
-    .send(date)
+    .post(`/api/tours/${id}/stops`)
+    .send(stop)
     .expect(200)
-    .then(({ body }) => body);
+    .then(({ body }) => [id, body]);
 }
 
     
-module.exports = { postTour, postTourDate };
+module.exports = { postTour, postTourStop };
