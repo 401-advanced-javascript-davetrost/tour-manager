@@ -14,6 +14,9 @@ describe('api routes for tours', () => {
     stops: []
   };
 
+  // const location1 = 'Normandale Park';
+  const crowdSize = 12;
+
   const stop1 = {
     location: {
       latitude: 45,
@@ -25,8 +28,6 @@ describe('api routes for tours', () => {
       precipitation: '10%'
     }
   };
-
-  // const location1 = 'Normandale Park';
 
   it('posts a tour without any stops', () => {
     return postTour(initialTour).then(tour => {
@@ -187,6 +188,40 @@ describe('api routes for tours', () => {
               `
               Object {
                 "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
+                "location": Object {
+                  "latitude": 45,
+                  "longitude": -122,
+                },
+                "weather": Object {
+                  "high": 78,
+                  "low": 60,
+                },
+              }
+            `
+            );
+          });
+      });
+  });
+
+  it('updates the attendance for a stop on the tour', () => {
+    return postTour(initialTour)
+      .then(tour => {
+        return postTourStop(tour._id, stop1);
+      })
+      .then(([id, stops]) => {
+        return request
+          .put(`/api/tours/${id}/stops/${stops[0]._id}/attendance`)
+          .send({ attendance: crowdSize })
+          .expect(200)
+          .then(({ body }) => {
+            expect(body[0]).toMatchInlineSnapshot(
+              {
+                ...matchMongoId
+              },
+              `
+              Object {
+                "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
+                "attendance": 12,
                 "location": Object {
                   "latitude": 45,
                   "longitude": -122,
