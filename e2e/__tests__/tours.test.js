@@ -161,6 +161,11 @@ describe('api routes for tours', () => {
           `
           Object {
             "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
+            "location": Object {
+              "latitude": 45.5320561,
+              "longitude": -122.6061411,
+              "name": "Normandale Park",
+            },
           }
         `
         );
@@ -184,6 +189,11 @@ describe('api routes for tours', () => {
               `
               Object {
                 "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
+                "location": Object {
+                  "latitude": 45.5320561,
+                  "longitude": -122.6061411,
+                  "name": "Normandale Park",
+                },
               }
             `
             );
@@ -210,6 +220,11 @@ describe('api routes for tours', () => {
               Object {
                 "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
                 "attendance": 12,
+                "location": Object {
+                  "latitude": 45.5320561,
+                  "longitude": -122.6061411,
+                  "name": "Normandale Park",
+                },
               }
             `
             );
