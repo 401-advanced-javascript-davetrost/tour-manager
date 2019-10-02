@@ -14,6 +14,20 @@ describe('api routes for tours', () => {
     stops: []
   };
 
+  const stop1 = {
+    location: {
+      latitude: 45,
+      longitude: -122
+    },
+    weather: {
+      high: 78,
+      low: 60,
+      precipitation: '10%'
+    }
+  };
+
+  const location1 = 'Normandale Park';
+
   it('posts a tour without any stops', () => {
     return postTour(initialTour).then(tour => {
       expect(tour).toMatchInlineSnapshot(
@@ -127,5 +141,36 @@ describe('api routes for tours', () => {
           );
         });
     });
+  });
+
+  it('adds a stop to a tour', () => {
+    return postTour(initialTour)
+      .then(tour => {
+        return request
+          .post(`/api/tours/${tour._id}/stops`)
+          .send(stop1)
+          .expect(200)
+          .then(({ body }) => body);
+      })
+      .then(stops => {
+        expect(stops[0]).toMatchInlineSnapshot(
+          {
+            ...matchMongoId
+          },
+          `
+          Object {
+            "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
+            "location": Object {
+              "latitude": 45,
+              "longitude": -122,
+            },
+            "weather": Object {
+              "high": 78,
+              "low": 60,
+            },
+          }
+        `
+        );
+      });
   });
 });
