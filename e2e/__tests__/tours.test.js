@@ -166,6 +166,12 @@ describe('api routes for tours', () => {
               "longitude": -122.6061411,
               "name": "Normandale Park",
             },
+            "weather": Object {
+              "forecast": "Possible drizzle overnight.",
+              "high": 63.29,
+              "low": 47.07,
+              "time": "2019-10-02T07:00:00.000Z",
+            },
           }
         `
         );
@@ -193,6 +199,12 @@ describe('api routes for tours', () => {
                   "latitude": 45.5320561,
                   "longitude": -122.6061411,
                   "name": "Normandale Park",
+                },
+                "weather": Object {
+                  "forecast": "Possible drizzle overnight.",
+                  "high": 63.29,
+                  "low": 47.07,
+                  "time": "2019-10-02T07:00:00.000Z",
                 },
               }
             `
@@ -224,6 +236,12 @@ describe('api routes for tours', () => {
                   "latitude": 45.5320561,
                   "longitude": -122.6061411,
                   "name": "Normandale Park",
+                },
+                "weather": Object {
+                  "forecast": "Possible drizzle overnight.",
+                  "high": 63.29,
+                  "low": 47.07,
+                  "time": "2019-10-02T07:00:00.000Z",
                 },
               }
             `
