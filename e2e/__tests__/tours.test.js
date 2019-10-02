@@ -69,26 +69,35 @@ describe('api routes for tours', () => {
     });
   });
 
-  // it('gets a list of actors', () => {
-  //   return Promise.all([postActor(ed), postActor(ed)])
-  //     .then(() => {
-  //       return request.get('/api/actors').expect(200);
-  //     })
-  //     .then(({ body }) => {
-  //       expect(body.length).toBe(2);
-  //       expect(body[0]).toMatchInlineSnapshot(
-  //         {
-  //           _id: expect.any(String)
-  //         },
-  //         `
-  //         Object {
-  //           "_id": Any<String>,
-  //           "name": "Edward Norton",
-  //         }
-  //       `
-  //       );
-  //     });
-  // });
+  it('gets a list of tours', () => {
+    return Promise.all([postTour(initialTour), postTour(initialTour)])
+      .then(() => {
+        return request.get('/api/tours').expect(200);
+      })
+      .then(({ body }) => {
+        expect(body.length).toBe(2);
+        expect(body[0]).toMatchInlineSnapshot(
+          {
+            ...matchMongoId,
+            launchDate: expect.any(String)
+          },
+          `
+          Object {
+            "__v": 0,
+            "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
+            "activities": Array [
+              "a-capella singing",
+              "freestyle frisbee",
+              "drumming",
+            ],
+            "launchDate": Any<String>,
+            "stops": Array [],
+            "title": "Movement show",
+          }
+        `
+        );
+      });
+  });
 
   // it('deletes an actor by id', () => {
   //   return postActor(ed).then(actor => {
