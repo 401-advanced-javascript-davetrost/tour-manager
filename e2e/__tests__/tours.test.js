@@ -21,17 +21,6 @@ describe('api routes for tours', () => {
   const attendance1 = {
     attendance: 12
   };
-  const stop1 = {
-    location: {
-      latitude: 45,
-      longitude: -122
-    },
-    weather: {
-      high: 78,
-      low: 60,
-      precipitation: '10%'
-    }
-  };
 
   it('posts a tour without any stops', () => {
     return postTour(initialTour).then(tour => {
