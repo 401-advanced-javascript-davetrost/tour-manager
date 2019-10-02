@@ -8,10 +8,10 @@ function postTour(tour) {
     .then(({ body }) => body);
 }
 
-function postTourStop(id, stop) {
+function postTourStop(id, location) {
   return request
     .post(`/api/tours/${id}/stops`)
-    .send(stop)
+    .send(location)
     .expect(200)
     .then(({ body }) => [id, body]);
 }

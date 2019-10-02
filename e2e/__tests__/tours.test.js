@@ -14,9 +14,13 @@ describe('api routes for tours', () => {
     stops: []
   };
 
-  // const location1 = 'Normandale Park';
-  const crowdSize = 12;
-
+  const location1 = {
+    name: 'test location',
+    address: 'Normandale Park'
+  };
+  const attendance1 = {
+    attendance: 12
+  };
   const stop1 = {
     location: {
       latitude: 45,
@@ -147,7 +151,7 @@ describe('api routes for tours', () => {
   it('adds a stop to a tour', () => {
     return postTour(initialTour)
       .then(tour => {
-        return postTourStop(tour._id, stop1);
+        return postTourStop(tour._id, location1);
       })
       .then(([, stops]) => {
         expect(stops[0]).toMatchInlineSnapshot(
@@ -157,14 +161,6 @@ describe('api routes for tours', () => {
           `
           Object {
             "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
-            "location": Object {
-              "latitude": 45,
-              "longitude": -122,
-            },
-            "weather": Object {
-              "high": 78,
-              "low": 60,
-            },
           }
         `
         );
@@ -174,7 +170,7 @@ describe('api routes for tours', () => {
   it('deletes a stop from a tour', () => {
     return postTour(initialTour)
       .then(tour => {
-        return postTourStop(tour._id, stop1);
+        return postTourStop(tour._id, location1);
       })
       .then(([id, stops]) => {
         return request
@@ -188,14 +184,6 @@ describe('api routes for tours', () => {
               `
               Object {
                 "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
-                "location": Object {
-                  "latitude": 45,
-                  "longitude": -122,
-                },
-                "weather": Object {
-                  "high": 78,
-                  "low": 60,
-                },
               }
             `
             );
@@ -206,12 +194,12 @@ describe('api routes for tours', () => {
   it('updates the attendance for a stop on the tour', () => {
     return postTour(initialTour)
       .then(tour => {
-        return postTourStop(tour._id, stop1);
+        return postTourStop(tour._id, location1);
       })
       .then(([id, stops]) => {
         return request
           .put(`/api/tours/${id}/stops/${stops[0]._id}/attendance`)
-          .send({ attendance: crowdSize })
+          .send(attendance1)
           .expect(200)
           .then(({ body }) => {
             expect(body[0]).toMatchInlineSnapshot(
@@ -222,14 +210,6 @@ describe('api routes for tours', () => {
               Object {
                 "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
                 "attendance": 12,
-                "location": Object {
-                  "latitude": 45,
-                  "longitude": -122,
-                },
-                "weather": Object {
-                  "high": 78,
-                  "low": 60,
-                },
               }
             `
             );
